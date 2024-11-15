@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:20  # Utiliza una imagen ligera de Node.js, útil para ejecutar herramientas de escaneo.
+    steps:
+      - checkout
+
+      - run:
+          name: Escaneo de Seguridad SAST con SonarQube
+          command: |
+            sonar-scanner \
+              -Dsonar.projectKey=proyecto_html \
+              -Dsonar.host.url=http://localhost:9000 \
+              -Dsonar.login=$SONAR_TOKEN
+
+      - run:
+          name: Escaneo de Seguridad DAST con OWASP ZAP
+          command: |
+            zap-cli quick-scan http://localhost:8000  # Cambia la URL según la ubicación de tu HTML en un servidor local o de prueba
+
+workflows:
+  version: 2
+  test_and_scan:
+    jobs:
+      - build
