@@ -12,9 +12,9 @@ jobs:
           command: |
             curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
             unzip sonar-scanner.zip
-            sudo mv sonar-scanner-4.6.2.2472-linux /opt/sonar-scanner  # Usar sudo para mover a /opt
-            echo 'export PATH=$PATH:/opt/sonar-scanner/bin' | sudo tee -a ~/.bashrc  # Usar sudo para modificar .bashrc
-            source ~/.bashrc
+            sudo mv sonar-scanner-4.6.2.2472-linux /usr/local/sonar-scanner  # Instalar en /usr/local/sonar-scanner
+            echo 'export PATH=$PATH:/usr/local/sonar-scanner/bin' >> $BASH_ENV  # Agregar al PATH de la sesión de CircleCI
+            source $BASH_ENV  # Aplicar el cambio a la sesión
 
       - run:
           name: Ejecutar SonarScanner
