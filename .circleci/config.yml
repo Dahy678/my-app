@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:20  # Utiliza una imagen ligera de Node.js, útil para ejecutar herramientas de escaneo.
+      - image: circleci/node:14  # Utiliza una imagen ligera de Node.js, útil para ejecutar herramientas de escaneo.
     steps:
       - checkout
 
